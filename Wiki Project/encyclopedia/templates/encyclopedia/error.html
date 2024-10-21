@@ -1,0 +1,59 @@
+{% extends "encyclopedia/layout.html" %}
+<!--And also my html error extension-->
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block body %}
+    <div class="error-container">
+        <h1 class="error-title">{{ title }}</h1>
+        <div class="error-content">
+            <h2>Page not found</h2>
+            <p>The page you are looking for was not found.</p>
+            <a href="{% url 'index' %}" class="error-link btn btn-primary ">Go back to Home</a>
+        </div>
+    </div>
+    <!--representative styling fo the green theme i chose-->
+    <style>
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 20px;
+        }
+        .error-title {
+            font-size: 3em;
+            color: #dc3545;
+            margin-bottom: 20px;
+        }
+        .error-content {
+            background: #dfe8df;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        .error-content h2 {
+            font-size: 2em;
+            color: black;
+            margin-bottom: 10px;
+        }
+        .error-content p {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .error-link {
+            border-radius: 7px;
+            text-align: center;
+            margin: 0 auto;
+            display: block;
+            width: 100px;
+        }
+    </style>
+{% endblock %}

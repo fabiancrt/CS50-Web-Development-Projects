@@ -1,0 +1,55 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Create New Page
+{% endblock %}
+
+{% block body %}
+    <h1>Create new page</h1>
+    
+    {% if error %}
+        <div class="error-box">
+            <p class="error-message">{{ error }}</p>
+        </div>
+    {% endif %}
+    
+    <form action="{% url 'new_page' %}" method="post" class="new-page-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-save">Save</button>
+    </form>
+
+    <style>
+        .new-page-form {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #155724; 
+            border-radius: 10px;
+            background-color: #e9f5e9; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .new-page-form button.btn-save {
+            background-color: #155724;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .new-page-form button.btn-save:hover {
+            background-color: #0b3d0b; 
+        }
+        .error-box {
+            background-color: #f8d7da; 
+            color: #721c24; 
+            border: 1px solid #f5c6cb; 
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .error-message {
+            margin: 0;
+        }
+    </style>
+{% endblock %}

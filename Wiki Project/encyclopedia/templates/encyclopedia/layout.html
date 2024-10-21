@@ -1,0 +1,112 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet">
+            <!--i chose to edit the default theme of the website and i decided to adapt a green color theme to represent growth-->
+        <style>
+            .sidebar {
+                background-color: #e9f5e9; 
+                color: #155724;
+                padding: 20px;
+                height: 100vh;
+                position: fixed;
+            }   
+            .sidebar h2 {
+                color: #155724;
+                margin-bottom: 20px;
+            }
+            .sidebar form {
+                margin-bottom: 20px;
+            }
+            .sidebar input[type="text"] {
+                width: 100%;
+                padding: 11px;
+                margin-bottom: 12px;
+                border: 1px solid #155724;
+                border-radius: 5px;
+                background-color: #f9f8f8; 
+                color: #155724; 
+            }
+            .sidebar input[type="submit"] {
+                width: 100%;
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                background-color: #155724;
+                color: #ffffff; /* White text */
+                font-weight: bold;
+            }
+            .sidebar input[type="submit"]:hover {
+                background-color: #0b3d0b; 
+            }
+            .sidebar a {
+                display: block;
+                padding: 10px;
+                margin-bottom: 10px;
+                color: #155724; 
+                text-decoration: none;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+            .sidebar a:hover {
+                background-color: #d4edda; 
+            }
+            .main {
+                margin-left: 20%;
+                padding: 22px;
+                background-color: #f4f1f1; 
+                min-height: 100vh;
+            }
+            .main h1, .main h2, .main h3, .main h4, .main h5, .main h6 {
+                color: #155724; 
+            }
+            .main p {
+                color: #6c757d;
+            }
+            @media (max-width: 992px) {
+                .sidebar {
+                    position: static;
+                    height: auto;
+                }
+                .main {
+                    margin-left: 0;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="row">
+            <div class="sidebar col-lg-2 col-md-3">
+                <h2>Wiki</h2>
+                    <!--here is where i updated my search like here:Search: Allow the user to type a query into the search box in the sidebar to search for an encyclopedia entry.-->
+                    <form action="{% url 'search' %}" method="get">
+                        <input type="text" name="q" placeholder="Search Encyclopedia">
+                        <input type="submit" value="Search" class="btn-secondary">
+                    </form>
+                <div>
+                    <a href="{% url 'index' %}">Home</a>
+                </div>
+                <div>
+                    <!--and now the user can click on the button and create a new-->
+                    <a href="{% url 'new_page'%}">Create New Page</a>
+                </div>
+                <div>
+                    <!--lets make this button click too-->
+                    <a href="{% url 'random_page'%}">Random Page</a>
+                </div>
+                {% block nav %}
+                {% endblock %}
+            </div>
+            <div class="main col-lg-10 col-md-9">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>
+
+    </body>
+</html>

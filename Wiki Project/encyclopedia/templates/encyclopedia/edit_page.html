@@ -1,0 +1,37 @@
+{% extends "encyclopedia/layout.html" %}
+<!--the extended html for the edit page to work-->
+{% block title %}
+    Edit {{ title }}
+{% endblock %}
+
+{% block body %}
+    <h1>Edit {{ title }}</h1>
+    <form action="{% url 'edit_page' title %}" method="post" class="edit-page-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-save">Save</button>
+    </form>
+    <!--representative styling fo the green theme i chose-->
+    <style>
+        .edit-page-form {
+            margin-top: 21px;
+            padding: 21px;
+            border: 1px solid #155724;
+            border-radius: 10px;
+            background-color: #e9f5e9; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .edit-page-form button.btn-save {
+            background-color: #155724;
+            color: white;
+            border: none;
+            padding: 11px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .edit-page-form button.btn-save:hover {
+            background-color: #0b3d0b; 
+        }
+    </style>
+{% endblock %}

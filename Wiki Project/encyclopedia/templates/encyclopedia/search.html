@@ -1,0 +1,55 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Search Results
+{% endblock %}
+
+{% block body %}
+    <h1>Search Results for "{{ query }}"</h1>
+    {% if results %}
+        <ul class="search-results-list">
+            {% for result in results %}
+                <li class="search-result-item"><a href="{% url 'entry' result %}">{{ result }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="no-results-message">No results found.</p>
+    {% endif %}
+        <!--style of the chosen theme-->
+    <style>
+        .search-results-list {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+            background-color: #e9f5e9;
+            border: 1px solid #155724; 
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .search-result-item {
+            margin: 10px 0;
+            padding: 10px;
+            border-bottom: 1px solid #155724; 
+        }
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+        .search-result-item a {
+            text-decoration: none;
+            color: #155724; 
+            font-weight: bold;
+        }
+        .search-result-item a:hover {
+            text-decoration: underline;
+            color: #0b3d0b; 
+        }
+        .no-results-message {
+            color: #721c24;
+            background-color: #f8d7da; 
+            border: 1px solid #f5c6cb; 
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,1 @@
+<p><strong>React</strong> (also known as <em>React.js</em> or <em>ReactJS</em>) is a free and open-source front-end JavaScript library for building user interfaces based on components by Facebook Inc. It is maintained by Meta (formerly Facebook) and a community of individual developers and companies.</p>

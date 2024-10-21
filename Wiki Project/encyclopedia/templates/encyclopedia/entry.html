@@ -1,0 +1,48 @@
+{% extends "encyclopedia/layout.html" %}
+<!--And also my html entry extension-->
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block body %}
+    <h1 class="entry-title">{{ title }}</h1>
+    <div class="entry-content">{{ content|safe }}</div>
+    <!--here i added link to edit-->
+    <a href="{% url 'edit_page' title %}" class="edit-link btn">Edit Page</a>
+    <!--representative styling fo the green theme i chose-->
+    <style>
+        .p{
+            color: #155724
+        }
+        .entry-title {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .entry-content {
+            font-size: 1.2em;
+            line-height: 1.6;
+            background-color: #dfe8df;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .edit-link {
+            border-radius: 7px;
+            text-align: center;
+            margin: 0 auto;
+            display: block;
+            width: 100px;
+            background-color: #155724;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            font-size: .9em;
+        }
+        .edit-link:hover{
+            color : #dbdbdb;
+        }
+    </style>
+{% endblock %}

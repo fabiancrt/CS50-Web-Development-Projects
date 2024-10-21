@@ -1,0 +1,63 @@
+{% extends "encyclopedia/layout.html" %}
+<!--here i updated the index according to: Index Page: Update index.html such that, instead of merely listing the names of all pages in the encyclopedia, user can click on any entry name to be taken directly to that entry page.-->
+{% block title %}
+    Encyclopedia
+{% endblock %}
+
+{% block body %}
+    <h1 class="index-title">All Pages</h1>
+
+    <ul class="entry-list">
+        {% for entry in entries %}
+            <li class="entry-item">
+                <span class="entry-line"></span>
+                <a href="{% url 'entry' entry %}">{{ entry }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+        <!--representative styling fo the green theme i chose-->
+    <style>
+        .index-title {
+            font-size: 2.5em;
+            color: #426344;
+            text-align: center;
+            margin-bottom: 33px;
+        }
+        .entry-list {
+            list-style-type: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .entry-item {
+            margin: 20px 0;
+            position: relative;
+            padding-left: 20px;
+            background-color: #dfe8df;
+            border-radius: 50px;
+            padding: 10px 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+        .entry-item .entry-line {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 10px;
+            height: 2px;
+            background-color: #155724;
+        }
+        .entry-item a {
+            text-decoration: none;
+            color: #155724;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-left: 20px;
+        }
+        .entry-item a:hover {
+            text-decoration: underline;
+            color: #155724;
+        }
+    </style>
+{% endblock %}

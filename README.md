@@ -6,7 +6,7 @@ Hello! I'm Fabian C, and I've successfully completed several projects as part of
 CS50's Web Programming with Python and JavaScript is an intermediate-level course that delves into the intricacies of modern web development. Throughout the course, I gained hands-on experience in:
 
     Languages & Frameworks: HTML, CSS, JavaScript, Python, Django, React.js
-    Tools & Services: Git, GitHub, Heroku, SQL, Cloud Computing
+    Tools & Services: Git, GitHub, SQL, Cloud Computing
     Key Concepts: API Development, Database Design, Scalability, Security, User Interface Design, Continuous Integration/Continuous Deployment (CI/CD)
 
 By the end of the course, I have developed the ability to design, build, and deploy robust web applications using industry-standard tools and best practices.
@@ -75,9 +75,9 @@ Features:
     Languages: HTML, CSS, JavaScript, Python
     Frameworks & Libraries: Django, React.js
     Databases: SQL
-    Tools: Git, GitHub, Heroku
+    Tools: Git, GitHub,
     Concepts: API Development, Database Design, Scalability, Security, User Interface Design, CI/CD
 
 Thank you for taking the time to view my projects! I'm excited to continue growing in the field of web development and contribute to impactful and innovative solutions.
 
-#CS50 #WebDevelopment #Python #JavaScript #Django #ReactJS #GitHub #Heroku
+#CS50 #WebDevelopment #Python #JavaScript #Django #ReactJS #GitHub

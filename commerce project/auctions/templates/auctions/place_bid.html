@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+
+<!--the extended html page for placing bids-->
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="bid-form-container p-5 rounded shadow-lg">
+                <h1 class="display-4 text-center mb-4">Place Your Bid</h1>
+                <div class="product-summary mb-4 p-3 rounded bg-light shadow-sm">
+                    <h2 class="text-primary">{{ product.name }}</h2>
+                    <p class="text-muted">{{ product.details }}</p>
+                    <h4 class="text-success">Current Highest Offer: ${{ product.highest_offer }}</h4>
+                </div>
+                {% if messages %}
+                    <div class="alert alert-danger">
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-lg btn-primary btn-block shadow-sm">Submit Your Bid</button>
+                </form>
+                <div class="mt-4 text-center">
+                    <a href="{% url 'product_detail' product.id %}" class="btn btn-secondary shadow-sm">Back to Product Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "auctions/layout.html" %}
+
+<!--the html page where users can add a product for auction-->
+
+{% block body %}
+<div class="container mt-5 mb-5">
+    <h2 class="text-center mb-4">Add a New Auction</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg mt-3">Submit Your Auction</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

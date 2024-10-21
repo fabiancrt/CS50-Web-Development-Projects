@@ -1,0 +1,56 @@
+{% extends "auctions/layout.html" %}
+<!-- my own extended html for the user to see the auctions that he participated in(this was not required)-->
+{% block title %}
+Participated Auctions
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="display-4 text-center mb-4">Auctions in which I participated</h1>
+    <div class="row mt-4">
+        {% for auction, status in auction_status %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-img-container">
+                    <img src="{{ auction.image_link }}" class="card-img-top" alt="{{ auction.name }}">
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ auction.name }}</h5>
+                    <p class="card-text text-center">{{ auction.details|truncatewords:20 }}</p>
+                    <p class="card-text"><strong>Initial Price:</strong> {{ auction.initial_price }} USD</p>
+                    <p class="card-text">
+                        <strong>Highest Bid:</strong> 
+                        {% if auction.highest_offer %}
+                            {{ auction.highest_offer }} USD
+                        {% else %}
+                            None
+                        {% endif %}
+                    </p>
+                    <p class="card-text"><strong>Created by:</strong> {{ auction.owner.username }}</p>
+                    {% if auction.owner.is_superuser %}
+                        <p class="card-text text-danger"><strong>Posted by Admin</strong></p>
+                    {% endif %}
+                    <a href="{% url 'product_detail' auction.id %}" class="btn btn-primary mb-2">View Auction</a>
+                    {% if auction.is_closed %}
+                        {% if status == "won" %}
+                            <div class="alert alert-success mt-3" role="alert">
+                                You won this auction!
+                            </div>
+                        {% else %}
+                            <div class="alert alert-danger mt-3" role="alert">
+                                You did not win this auction.
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="card-footer text-muted">
+                    Posted on {{ auction.date_posted|date:"F j, Y" }}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-muted">You have not participated in any auctions yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends "auctions/layout.html" %}
+<!--the html extension page for product detail which has many personal touch features-->
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="product-image-container text-center">
+                <img src="{{ product.image_link }}" class="img-fluid rounded shadow-lg" alt="{{ product.name }}">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="product-details-container p-4 rounded shadow-lg bg-light">
+                <h1 class="display-4 text-center">{{ product.name }}</h1>
+                <p class="lead text-muted text-center">{{ product.details }}</p>
+                <div class="text-center mb-3">
+                    <span class="badge badge-primary p-2">Starting Price: ${{ product.initial_price }}</span>
+                    <span class="badge badge-success p-2">Highest Offer: ${{ product.highest_offer }}</span>
+                </div>
+                {% if highest_bidder %}
+                    <h5 class="text-info text-center">Highest Bidder: {{ highest_bidder.username }}</h5>
+                {% endif %}
+                <hr>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="text-secondary">Posted by: {{ product.owner.username }}</h5>
+                        <p class="text-muted">On {{ product.date_posted|date:"F j, Y" }}</p>
+                    </div>
+                    {% if not product.active %}
+                        <div class="alert alert-info">
+                            Auction is closed. You cannot place a bid or close the auction.
+                        </div>
+                    {% else %}
+                        {% if user == product.owner %}
+                            <form method="post" action="{% url 'close_auction' product.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-lg btn-danger shadow-sm">Close Auction</button>
+                            </form>
+                        {% else %}
+                            <a href="{% url 'place_bid' product.id %}" class="btn btn-lg btn-success shadow-sm">Place a Bid</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                {% if not product.active %}
+                    {% if user == product.owner %}
+                        {% if highest_bidder %}
+                            <div class="alert alert-success mt-3" role="alert">
+                                The auction was won by {{ highest_bidder.username }} with a bid of ${{ product.highest_offer }}.
+                            </div>
+                        {% else %}
+                            <div class="alert alert-danger mt-3" role="alert">
+                                No bids were placed on this auction.
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        {% if user_won %}
+                            <div class="alert alert-success mt-3" role="alert">
+                                You won the auction!
+                            </div>
+                        {% else %}
+                            <div class="alert alert-danger mt-3" role="alert">
+                                You did not win the auction.
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                {% if user.is_authenticated and user != product.owner %}
+                    <div class="mt-3">
+                        {% if is_watchlisted %}
+                            <a href="{% url 'remove_from_watchlist' product.id %}" class="btn btn-danger">Remove from Watchlist</a>
+                        {% else %}
+                            <a href="{% url 'add_to_watchlist' product.id %}" class="btn btn-primary">Add to Watchlist</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="comments-section p-4 rounded shadow-lg bg-light">
+                <h2 class="mb-4 text-center">Feedback</h2>
+                {% for review in product.reviews.all %}
+                <div class="comment mb-3 p-3 rounded bg-light shadow-sm d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-1">{{ review.reviewer.username }}</h5>
+                        <p class="mb-1">{{ review.review_text }}</p>
+                        <small class="text-muted">{{ review.review_date|date:"F j, Y, g:i a" }}</small>
+                    </div>
+                    {% if user == review.reviewer %}
+                        <form method="post" action="{% url 'delete_comment' review.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    {% endif %}
+                </div>
+                {% empty %}
+                <p class="text-muted text-center">No comments yet. Be the first to comment!</p>
+                {% endfor %}
+                {% if user.is_authenticated and user != product.owner %}
+                    <form method="post" class="mt-3">
+                        {% csrf_token %}
+                        {{ review_form.as_p }}
+                        <button type="submit" name="review" class="btn btn-primary">Submit Your Feedback</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

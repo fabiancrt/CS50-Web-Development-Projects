@@ -1,0 +1,48 @@
+{% extends "auctions/layout.html" %}
+
+<!--the extended html that displays the products in each category-->
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="display-4 text-center">{{ category }}</h1>
+    <div class="row mt-4">
+        {% for product in products %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-img-container">
+                        <img src="{{ product.image_link }}" class="card-img-top" alt="{{ product.name }}">
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text text-center">{{ product.details|truncatewords:20 }}</p>
+                        <p class="card-text"><strong>Initial Price:</strong> {{ product.initial_price }} USD</p>
+                        <p class="card-text">
+                            <strong>Highest Bid:</strong> 
+                            {% if product.highest_offer %}
+                                {{ product.highest_offer }} USD
+                            {% else %}
+                                None
+                            {% endif %}
+                        </p>
+                        <p class="card-text"><strong>Created by:</strong> {{ product.owner.username }}</p>
+                        {% if product.owner.is_superuser %}
+                            <p class="card-text text-danger"><strong>Posted by Admin</strong></p>
+                        {% endif %}
+                        <a href="{% url 'product_detail' product.id %}" class="btn btn-primary mb-2">View Details</a>
+                        {% if user.is_authenticated and user != product.owner %}
+                            {% if product.id in watchlist_status %}
+                                <a href="{% url 'remove_from_watchlist' product.id %}" class="btn btn-danger mt-auto rounded-pill">Remove from Watchlist</a>
+                            {% else %}
+                                <a href="{% url 'add_to_watchlist' product.id %}" class="btn btn-primary mt-auto">Add to Watchlist</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <div class="card-footer text-muted">
+                        Posted on {{ product.date_posted|date:"F j, Y" }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

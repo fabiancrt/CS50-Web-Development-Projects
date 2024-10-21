@@ -1,0 +1,42 @@
+{% extends "auctions/layout.html" %}
+
+<!--the html extension page for watchlist-->
+
+{% block body %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Your Watchlist</h2>
+    <div class="row">
+        {% for item in watchlist_items %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-img-container">
+                    <img src="{{ item.product.image_link }}" class="card-img-top" alt="{{ item.product.name }}">
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ item.product.name }}</h5>
+                    <p class="card-text text-center">{{ item.product.details|truncatewords:20 }}</p>
+                    <p class="card-text"><strong>Initial Price:</strong> {{ item.product.initial_price }} USD</p>
+                    <p class="card-text">
+                        <strong>Highest Bid:</strong> 
+                        {% if item.product.highest_offer %}
+                            {{ item.product.highest_offer }} USD
+                        {% else %}
+                            None
+                        {% endif %}
+                    </p>
+                    <p class="card-text"><strong>Created by:</strong> {{ item.product.owner.username }}</p>
+                    {% if item.product.owner.is_superuser %}
+                        <p class="card-text text-danger"><strong>Posted by Admin</strong></p>
+                    {% endif %}
+                    <a href="{% url 'product_detail' item.product.id %}" class="btn btn-primary mb-2">View Details</a>
+                    <a href="{% url 'remove_from_watchlist' item.product.id %}" class="btn btn-danger mt-auto">Remove from Watchlist</a>
+                </div>
+                <div class="card-footer text-muted">
+                    Posted on {{ item.product.date_posted|date:"F j, Y" }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

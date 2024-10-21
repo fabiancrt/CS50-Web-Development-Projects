@@ -1,0 +1,38 @@
+
+/*some css i wrote but i abandoned*/
+
+button {
+    background-color: #006400;
+    color: #f0fff0;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: #228b22;
+}
+
+.pagination {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.pagination .step-links a {
+    color: #f0fff0;
+    margin: 0 5px;
+}
+
+.pagination .current {
+    color: #f0fff0;
+}
+
+.step-links a {
+    text-decoration: none;
+}
+
+.step-links a:hover {
+    text-decoration: underline;
+}

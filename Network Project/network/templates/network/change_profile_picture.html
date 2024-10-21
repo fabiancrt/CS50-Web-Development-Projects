@@ -1,0 +1,80 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+<!--here is the template i made so that the user has a more friendly interface where he can change his profile pic-->
+
+{% block body %}
+    <!-- bts css sheet -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- FA for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <div class="container mt-5">
+        <h2 class="text-center text-success">Change Profile Picture</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form action="{% url 'change_profile_picture' %}" method="post" enctype="multipart/form-data" class="p-4 rounded bg-light shadow-sm">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_profile_picture" class="text-success font-weight-bold">Upload New Profile Picture</label>
+                        {{ form.profile_picture }}
+                    </div>
+                    <button type="submit" class="btn btn-outline-success btn-block">Change Picture</button>
+                </form>
+                <div class="text-center mt-3">
+                    {% if request.user.profile.profile_picture %}
+                        <img src="{{ request.user.profile.profile_picture.url }}" class="rounded-circle img-fluid profile-picture" alt="Profile Picture">
+                    {% else %}
+                        <img src="{{ MEDIA_URL }}profile_pictures/default_profile_pic.jpg" class="rounded-circle img-fluid profile-picture" alt="Default Profile Picture">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--green css to match the theme-->
+    <style>
+        body {
+            background-color: #e8f5e9; 
+            color: #2e8b57;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .btn, .btn-outline-success {
+            background-color: #ffffff; 
+            color: #2e8b57; 
+            border: 1px solid #2e8b57;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+            transition: all 0.3s ease; 
+        }
+        .btn:hover, .btn-outline-success:hover {
+            background-color: #2e8b57; 
+            color: #ffffff; 
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); 
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #2e8b57;
+        }
+        .form-group label {
+            font-size: 1.2em;
+        }
+
+        .form-control {
+            border: 1px solid #2e8b57;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #2e8b57;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+{% endblock %}

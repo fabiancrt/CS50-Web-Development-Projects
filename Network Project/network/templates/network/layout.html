@@ -1,0 +1,127 @@
+{% load static %}
+
+<!--here is the modified layout template that displays a more relevant and more functional nav bar , including also a 
+very helpful search input that is used for searching users-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}Social Network{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'network/styles.css' %}" rel="stylesheet">
+        <style>
+            .navbar {
+                border-radius: 15px;
+                background-color: rgba(255, 255, 255, 0.8);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+                padding: 10px 20px;
+            }
+
+            .navbar-brand, .nav-link {
+                color: #2e8b57 !important;
+                font-weight: bold;
+            }
+
+            .navbar-brand:hover, .nav-link:hover {
+                color: #ffffff !important;
+                background-color: #2e8b57;
+                border-radius: 5px;
+                padding: 5px 10px;
+            }
+
+            .search-bar {
+                border-radius: 5px;
+                border: 1px solid #2e8b57;
+                padding: 5px 10px;
+                margin-right: 10px;
+            }
+
+            .search-bar::placeholder {
+                color: #2e8b57;
+            }
+
+            .search-button {
+                background-color: #2e8b57;
+                color: #ffffff;
+                border: none;
+                border-radius: 5px;
+                padding: 5px 10px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .search-button:hover {
+                background-color: #ffffff;
+                color: #2e8b57;
+                border: 1px solid #2e8b57;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .navbar-nav .nav-link {
+                margin-right: 10px;
+                margin-bottom: 5px;
+                border-radius: 5px;
+                transition: all 0.3s ease;
+            }
+
+            .navbar-nav .nav-link:hover {
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+        </style>
+    </head>
+    
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{% url 'index' %}">Network</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto align-items-center">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'profile' username=request.user.username %}"><strong>{{ user.username }}</strong></a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">All Posts</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'new_post' %}">Create Post</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'following' %}">Following</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                        </li>
+                    {% if user.is_superuser %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'admin:index' %}">Admin Panel</a>
+                        </li>
+                    {% endif %}
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                <form class="form-inline my-2 my-lg-0 align-items-center" onsubmit="event.preventDefault(); window.location.href = '/profile/' + this.q.value;">
+                    <input class="form-control mr-sm-2 search-bar" type="search" placeholder="Search" aria-label="Search" name="q" required>
+                    <button class="btn search-button my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+        
+        <div class="body">
+            {% block body %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

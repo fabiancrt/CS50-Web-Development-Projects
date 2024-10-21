@@ -1,0 +1,81 @@
+{% extends "network/layout.html" %}
+<!--here is where i made the html template for the new post feature in case the user decides he want to upload more than a status -->
+{% load static %}
+{% block body %}
+    <!-- btstrap sheet -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- FA for icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <div class="container mt-5">
+        <h2 class="text-center text-success">Create New Post</h2>
+        <div class="new_post p-4 rounded bg-light shadow-sm">
+            <form action="{% url 'new_post' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="content" class="font-weight-bold text-success">Let your imagionation speak</label>
+                    <textarea name="content" id="content" class="form-control" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="image" class="font-weight-bold text-success">Upload an image</label>
+                    <input type="file" name="image" id="image" class="form-control-file">
+                </div>
+                <button type="submit" class="btn btn-success btn-block">Post</button>
+            </form>
+        </div>
+    </div>
+    <!--css to make sure it adapts to the theme i chose-->
+    <style>
+        body {
+            background-color: #e8f5e9;
+            color: #2e8b57;
+            font-family: 'Arial', sans-serif;
+        }
+        h2 {
+            margin-top: 20px;
+        }
+
+        .new_post {
+            border-radius: 10px;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .new_post label {
+            font-size: 1.2em;
+        }
+        .new_post textarea {
+            border-radius: 5px;
+            border: 1px solid #2e8b57;
+            padding: 10px;
+            background-color: #ffffff;
+            color: #2e8b57;
+        }
+
+        .new_post input[type="file"] {
+            border: 1px solid #2e8b57;
+            padding: 10px;
+            background-color: #ffffff;
+            color: #2e8b57;
+            border-radius: 5px;
+        }
+        button, .btn, .btn-outline-success, .btn-outline-warning, .btn-outline-danger {
+            background-color: #ffffff; 
+            color: #2e8b57; 
+            border: 1px solid #2e8b57;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        button:hover, .btn:hover, .btn-outline-success:hover, .btn-outline-warning:hover, .btn-outline-danger:hover {
+            background-color: #2e8b57; 
+            color: #ffffff; 
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+{% endblock %}

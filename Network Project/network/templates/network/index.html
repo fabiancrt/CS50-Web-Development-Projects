@@ -1,0 +1,141 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+<!--this is the index template where all the posts get displayed and where the user can interact with other user posts ,
+i followed the specs the team gave but i added my own features for example image display and also the ability to remove a post -->
+
+{% block body %}
+    <!-- bts css -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- FA for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <div class="container mt-5">
+        <h2 class="text-center text-success">All Posts</h2>
+        {% if user.is_authenticated %}
+        <!--here only if the user is authentificated he can post a status on his feed -->
+            <div class="new_post p-4 rounded my-4 bg-light">
+                <p class="font-weight-bold text-success">How are you feeling today?</p>
+                <form action="{% url 'new_post' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <textarea name="content" class="form-control" rows="2" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Post</button>
+                </form>
+            </div>
+        {% endif %}
+        <!--loop for displaying posts-->
+        {% for post in page_obj %}
+        <div class="post p-4 rounded my-4 bg-white shadow-sm" data-post-id="{{ post.id }}">
+            {% if post.image %}
+                <img src="{{ post.image.url }}" alt="post image" class="img-fluid rounded mb-3" style="max-width: 100%;">
+            {% endif %}
+            <div class="d-flex align-items-center mb-2">
+
+                <!--from this part of the page it is similar to the one on the profile template ,except the fact that the index does not handle description management and
+                other features that i only added in my profile template-->
+
+                {% if post.user.profile.profile_picture %}
+                    <img src="{{ post.user.profile.profile_picture.url }}" class="rounded-circle img-fluid profile-pictogram mr-2" alt="Profile Picture">
+                {% else %}
+                    <img src="{{ MEDIA_URL }}/media/profile_pictures/default_profile_pic.jpg" class="rounded-circle img-fluid profile-pictogram mr-2" alt="Default Profile Picture">
+                {% endif %}
+                <p class="mb-0"><a href="{% url 'profile' post.user.username %}" class="text-success font-weight-bold">{{ post.user.username }}</a></p>
+            </div>
+            <p class="post-content">{{ post.content }}</p>
+            <p class="text-muted">{{ post.timestamp }}</p>
+            <button class="btn btn-outline-success like-button" data-post-id="{{ post.id }}">
+                <i class="fa {% if post.is_liked %}fa-heart{% else %}fa-heart-o{% endif %}"></i>
+                <span class="like-count">{{ post.likes_count }}</span>
+            </button>
+            {% if request.user == post.user %}
+                <button class="btn btn-outline-warning edit-button" data-post-id="{{ post.id }}">Edit</button>
+                <button class="btn btn-outline-danger remove-button" data-post-id="{{ post.id }}">Remove</button>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <div class="pagination text-center">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1" class="text-success">&laquo; First</a>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="text-success">| Previous | </a>
+                {% endif %}
+                <span class="current text-success">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="text-success"> | Next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}" class="text-success"> | Last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    <style>
+        body {
+            background-color: #e8f5e9;
+            color: #2e8b57; 
+            font-family: 'Arial', sans-serif;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+
+        .new_post, .post {
+            border-radius: 10px;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .new_post p, .post p {
+            font-size: 1.2em;
+        }
+
+        .new_post textarea {
+            border-radius: 5px;
+            border: 1px solid #2e8b57;
+            padding: 10px;
+            background-color: #ffffff;
+            color: #2e8b57;
+        }
+
+        button, .btn, .btn-outline-success, .btn-outline-warning, .btn-outline-danger {
+            background-color: #ffffff; 
+            color: #2e8b57; 
+            border: 1px solid #2e8b57;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+            transition: all 0.3s ease; 
+        }
+
+        button:hover, .btn:hover, .btn-outline-success:hover, .btn-outline-warning:hover, .btn-outline-danger:hover {
+            background-color: #2e8b57; 
+            color: #ffffff; 
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .pagination .step-links a {
+            margin: 0 5px;
+        }
+
+        .step-links a:hover {
+            text-decoration: underline;
+        }
+
+        .profile-pictogram {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #2e8b57;
+        }
+    </style>
+    <script src="{% static 'network/edit_post.js' %}?v={{ timestamp }}"></script>
+    <script src="{% static 'network/like_post.js' %}?v={{ timestamp }}"></script>
+    <script src="{% static 'network/remove_post.js' %}?v={{ timestamp }}"></script>
+{% endblock %}

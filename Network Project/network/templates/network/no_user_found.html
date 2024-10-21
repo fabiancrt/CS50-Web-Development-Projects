@@ -1,0 +1,79 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+<!--here is the error template i made to handle the case where there was no username found from the search input-->
+
+{% block title %}
+    No User Found
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="no-user-found p-4 rounded bg-light shadow-sm text-center">
+            <h2 class="text-danger">No User Found</h2>
+            <p class="lead">We couldn't find a user with the username "<strong>{{ username }}</strong>".</p>
+            <p>Please check the username and try again.</p>
+            <a href="{% url 'index' %}" class="btn btn-success mt-3">Go Back to Home</a>
+        </div>
+    </div>
+
+    <style>
+        body {
+            background-color: #e8f5e9; 
+            color: #2e8b57; 
+            font-family: 'Arial', sans-serif;
+        }
+
+        .no-user-found {
+            border-radius: 10px;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .no-user-found h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .no-user-found p {
+            font-size: 1.2em;
+        }
+
+        .no-user-found a.btn {
+            background-color: #2e8b57; 
+            color: #ffffff; 
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+            transition: all 0.3s ease; 
+        }
+
+        .no-user-found a.btn:hover {
+            background-color: #ffffff; 
+            color: #2e8b57; 
+            border: 1px solid #2e8b57;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); 
+        }
+        
+        button, .btn, .btn-outline-success, .btn-outline-warning, .btn-outline-danger {
+            background-color: #ffffff; 
+            color: #2e8b57; 
+            border: 1px solid #2e8b57;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+            transition: all 0.3s ease; 
+        }
+
+        button:hover, .btn:hover, .btn-outline-success:hover, .btn-outline-warning:hover, .btn-outline-danger:hover {
+            background-color: #2e8b57; 
+            color: #ffffff; 
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); 
+        }
+    </style>
+{% endblock %}

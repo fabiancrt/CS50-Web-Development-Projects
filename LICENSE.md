@@ -1,4 +1,4 @@
-# Jarvis AI Assistant License Agreement
+# License Agreement
 
 **Effective Date:** 10/21/2024
 
@@ -8,7 +8,7 @@
 
 ## 1. Grant of License
 
-Subject to the terms and conditions of this Agreement, Licensor hereby grants Licensee a non-exclusive, non-transferable, limited license to use, modify, and distribute the Jarvis AI Assistant software ("Software") solely for recruitment purposes.
+Subject to the terms and conditions of this Agreement, Licensor hereby grants Licensee a non-exclusive, non-transferable, limited license to use, modify, and distribute the CS50-Web-Development-Projects ("Projects") solely for recruitment purposes.
 
 ## 2. Restrictions
 
@@ -42,4 +42,4 @@ This Agreement constitutes the entire agreement between the parties regarding th
 
 ---
 
-**By using the Jarvis AI Assistant, you agree to the terms and conditions outlined in this License Agreement.**
+**By using the CS50-Web-Development-Projects, you agree to the terms and conditions outlined in this License Agreement.**

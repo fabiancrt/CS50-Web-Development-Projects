@@ -1,4 +1,8 @@
-Harvard's CS50 Web Development Projects
+### Harvard's CS50 Web Development Projects
+
+---
+- **IMPORTANT NOTE:** These projects were completed while I was still in highschool, that motivates the simplicity of the problems.
+---
 
 Harvard's CS50's Web Programming with Python and JavaScript is a course for web development. Throughout the course, I worked with:
 

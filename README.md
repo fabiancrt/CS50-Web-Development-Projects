@@ -1,10 +1,10 @@
-CS50 Web Development Projects
+Harvard's CS50 Web Development Projects
 
-CS50's Web Programming with Python and JavaScript is an intermediate course for modern web development. Throughout the course, I worked with:
+Harvard's CS50's Web Programming with Python and JavaScript is a course for web development. Throughout the course, I worked with:
 
-    Languages and frameworks: HTML, CSS, JavaScript, Python, Django, React.js
-    Tools and services: Git, GitHub, SQL
-    Key concepts: API Development, Database Design, Security, UI Design, CI/CD
+    Languages and frameworks: HTML, CSS, JavaScript, Python, Django
+    Tools: Git, SQL
+    Key concepts: APIs, Databases, Security, UI Design
 
 Projects
 1. Google Search Replica
